@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
+# React Context + Typescript Practice
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align='center'>I wanted to brush up my React + Typescript skills and what better way to do so <br/>than by delving into contexts and diving deep into the data flow?</p>
+<img src='https://github.com/phukon/shopping-cart-react/assets/60285613/52cff078-7c9a-4ab3-86eb-0026cbd4e5b7'alt="store screenshot"/>
 
-Currently, two official plugins are available:
+---
+- Used best practices for using Context (abstraction using custom hooks)
+- Items are listed in the `/store` route. 
+- Items can be added doing which the cart `🛒` icon with the total number of items in the cart appears.
+- This cart `🛒` icon can be clicked to reveal a sidebar that gives the summary of the items, prices and quantities.
+- A navigation bar and three routes
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Nuances
 
-## Expanding the ESLint configuration
+Writing types was the fun part. Here are the types I wrote for the `Shopping Cart Context`
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Types
 
-- Configure the top-level `parserOptions` property like this:
+```typescript
+type TShoppingCartProviderProps = {
+  children: ReactNode;
+};
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+type TShoppingCartContext = {
+  openCart: () => void;
+  closeCart: () => void;
+  getItemQuantity: (id: number) => number;
+  increaseCartQuantity: (id: number) => void;
+  decreaseCartQuantity: (id: number) => void;
+  removeFromCart: (id: number) => void;
+  cartQuantity: number;
+  cartItems: TCartItem[];
+};
+
+type TCartItem = {
+  id: number;
+  quantity: number;
+};
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
