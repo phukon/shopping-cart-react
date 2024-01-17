@@ -2,6 +2,17 @@ import { ReactNode, createContext, useContext, useState } from 'react';
 import { ShoppingCart } from '../components/ShoppingCart';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
+/**
+ * A simple rule of thumb to use contexts.:
+ * 
+ * CREATE -> PROVIDE -> CONSUME
+ *  - Create a context and add values
+ *  - Provide that context to components
+ *  - Use that context
+ * 
+ * ADDITIONALLY
+ * Use a custom hook to make use using context less cumbersome (like importing the context everywhere)
+*/
 
 
 type TShoppingCartProviderProps = {
@@ -25,6 +36,7 @@ type TCartItem = {
 };
 
 const ShoppingCartContext = createContext({} as TShoppingCartContext);
+
 export function useShoppingCart() {
   return useContext(ShoppingCartContext);
 }
